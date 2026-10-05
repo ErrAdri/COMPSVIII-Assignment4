@@ -1,94 +1,41 @@
-# Assignment #4: Application Containerization
+# My PHP Project
 
-This is a simple Node.js web application designed for learning Docker containerization concepts.
+Base template for starting a PHP project, ready to open in PhpStorm.
 
-## Application Overview
+## Structure
 
-This application is a basic Express.js web server that:
-- Serves a static HTML page at the root (`/`)
-- Provides an API status endpoint at `/api/status`
-- Includes a health check endpoint at `/health`
-- Runs on port 3000 by default (configurable via PORT environment variable)
+```
+php-starter/
+├── config/
+│   └── config.php      # General configuration (app name, environment, errors)
+├── src/
+│   └── helpers.php     # Helper functions (e.g. HTML escaping)
+├── public/
+│   ├── index.php       # Entry point (document root)
+│   └── assets/
+│       └── style.css
+└── README.md
+```
 
-## What's Included
+## How to open it in PhpStorm
 
-- **app.js**: Main application server file
-- **package.json**: Node.js dependencies and project configuration
-- **public/index.html**: Static HTML page that confirms successful containerization
-- **public/style.css**: Styling for the web page
-
-## Running Without Docker (for reference only)
-
-If you wanted to run this application directly (not required for assignment):
+1. `File > Open` and select the `php-starter` folder.
+2. Set up a PHP interpreter: `Settings > PHP > CLI Interpreter` (add one if you don't have it, pointing to your local PHP installation).
+3. Mark the `public/` folder as the **Document Root**:
+   - Right-click `public` > `Mark Directory as` > `Sources Root` (optional, for autocompletion).
+4. Set up a development server:
+   - `Run > Edit Configurations > + > PHP Built-in Web Server`
+   - Document root: `public/`
+   - Port: for example `8000`
+5. Run it with the ▶ button, or start it manually:
 ```bash
-npm install
-npm start
+   php -S localhost:8000 -t public
 ```
+6. Open `http://localhost:8000` in your browser.
 
-## Your Docker Assignment
+## What's included as an example
 
-**DO NOT MODIFY THE APPLICATION CODE**
-
-Your task is to containerize this existing application using Docker. You need to:
-
-1. Create a `Dockerfile` that properly containerizes this Node.js application
-2. Build a Docker image from your Dockerfile
-3. Run a container from your image
-4. Verify the application works by accessing it in your browser
-
-## Starting the Application
-
-- To build the docker image run the command:
-
-```bash
-
-```
-
-- To run your docker container in port 3000 run the command:
-
-```bash
-
-```
-
-## Reflection Question
-**Answer the following question in the space below**: How does containerization with Docker differ from using virtual machines, and why might a development team choose Docker containers over VMs for deploying applications like the one you just containerized?
-
-
-
-## Application Requirements for Docker
-
-Your Dockerfile should ensure:
-- The application has Node.js runtime available
-- All application files are copied into the container
-- Dependencies are installed (`npm install`)
-- Port 3000 is exposed
-- The application starts with `npm start`
-- The container can be accessed from your host machine
-
-## Verification
-
-When your Docker container is running correctly:
-- Navigate to `http://localhost:3000` (or whatever port you mapped)
-- You should see a success page confirming containerization worked
-- The `/api/status` endpoint should return JSON status information
-
-## Troubleshooting Tips
-
-- Make sure your port mapping is correct in the `docker run` command
-- Check that all files are copied into the container
-- Verify Node.js dependencies are installed in the container
-- Use `docker logs <container-name>` to see application output
-
-## File Structure Expected
-```
-docker-assignment/
-├── Dockerfile          # You create this
-├── app.js              # Provided
-├── package.json        # Provided
-├── public/             # Provided
-│   ├── index.html      # Provided
-│   └── style.css       # Provided
-└── README.md           # This file
-```
-
-Good luck with your Docker containerization!
+- POST form handling with simple validation.
+- HTML output escaping (`e()`) to prevent XSS.
+- Sessions (visit counter).
+- Separation into `config/`, `src/` and `public/` so it's easy to scale.
